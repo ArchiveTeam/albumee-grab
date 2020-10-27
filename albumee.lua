@@ -134,7 +134,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         or string.match(newurl, "^android%-app:")
         or string.match(newurl, "^ios%-app:")
         or string.match(newurl, "^%${")) then
-      check(urlparse.absolute(url, newurl))
+      check(urlparse.absolute(url, "/" .. newurl))
     end
   end
 
@@ -164,9 +164,6 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
     for newurl in string.gmatch(html, ">%s*([^<%s]+)") do
       checknewurl(newurl)
     end
-    for newurl in string.gmatch(html, "href='([^']+)'") do
-      checknewshorturl(newurl)
-    end
     for newurl in string.gmatch(html, "[^%-]href='([^']+)'") do
       checknewshorturl(newurl)
     end
@@ -179,13 +176,6 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   end
 
   return urls
-end
-
-wget.callbacks.write_to_warc = function(url, http_stat)
-  if http_stat["statcode"] ~= 200 and http_stat["statcode"] ~= 302 then
-    return false
-  end
-  return true
 end
 
 wget.callbacks.httploop_result = function(url, err, http_stat)
