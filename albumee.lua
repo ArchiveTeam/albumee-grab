@@ -36,7 +36,10 @@ allowed = function(url, parenturl)
     or string.match(url, "^https?://[^/]*twitter%.com/")
     or string.match(url, "^https?://[^/]*facebook%.com/")
     or string.match(url, "^https?://keskus%.ee/login%.php%?")
-    or string.match(url, "/setlang/") then
+    or string.match(url, "/setlang/")
+    or string.match(url, "/top/rate/")
+    or string.match(url, "/order/prints/")
+    or string.match(url, "/objectvisit_tracker%.php") then
     return false
   end
 
